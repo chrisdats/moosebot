@@ -1,3 +1,0 @@
-#!/bin/bash
-
-curl http://www.isitchickentendersday.com/ | grep -hro "No\|Yes"
