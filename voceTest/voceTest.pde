@@ -9,9 +9,9 @@ import processing.serial.*;
 // Pick 1 for Windows,
 //      2 for Mac,
 //      3 for Linux.
-int OS = 3;
+int OS = 2;
 
-File WORKING_DIR = new File("/home/arsalan/hackathon/moosebot/voceTest");
+File WORKING_DIR = new File("/Users/sam/Desktop/moosebot/voceTest");
 
 // setup ------------------------------------------------------------------------------------------
 
@@ -49,12 +49,11 @@ void draw() {
 
     if (voce.SpeechInterface.getRecognizerQueueSize() > 0) {
 
-        voce.SpeechInterface.setRecognizerEnabled(false);
 
         String s = voce.SpeechInterface.popRecognizedString();
+        voce.SpeechInterface.setRecognizerEnabled(false);
         println("match = " + s);
-
-        if (s.equals("is it chicken tenders day")) {
+        if (s.equals("chicken tenders false")) {
             String additionalSpeech = "";
             if (chickenTenders.equals("Yes")) {
                 additionalSpeech = "it is chicken tenders day";
@@ -64,13 +63,21 @@ void draw() {
             println(additionalSpeech);
             say(chickenTenders + " " + additionalSpeech);
         
-        } else if (s.equals("what is the best college")) {
+        } else if (s.equals("best college")) {
             say("Ezra Stiles of course, go fucking moose");
-        
-        } else if (s.equals("jay ee") || s.equals("tee dee")) {
-            say("boo");
+        } else if (s.equals("jay ee") || s.equals("saybrook") || s.equals("tee dee")) {
+            say("booo");
+        } else if (s.equals("master")) {
+          say("Master Pitti");
+        } else if (s.equals("dean")) {
+          say("Dean L");
+        } else if (s.equals("moose fact")) {
+          say("Did you know the moose is the most amazing animal in the world?");
+        } else if (s.equals("bagel brunch")) {
+          say("No bagel brunch today");
+        } else if (s.equals("joke")) {
+          say("Jokes");
         }
-
         voce.SpeechInterface.setRecognizerEnabled(true);
     }
 }
@@ -79,7 +86,7 @@ void say(String speech) {
     if (OS == 1) {
         tts.speak(speech);
     } else if (OS == 2) {
-        String[] command = {"say", "'" + speech + "'"};
+        String[] command = {"say", "-v", "cellos", "'" + speech + "'"};
         runCommand(command);
     } else if (OS == 3) {
         println(speech);
