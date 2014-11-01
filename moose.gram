@@ -2,4 +2,7 @@
 
 grammar moose;
 
-public <hello> = (is it (chicken tenders day | bagel brunch) ) *;
+public <main> = (<isIt>|<bestCollege>|<otherColleges>);
+public <isIt> = (is it chicken tenders day);
+public <bestCollege> = (what is the best college);
+public <otherColleges> = (jay ee | tee dee);

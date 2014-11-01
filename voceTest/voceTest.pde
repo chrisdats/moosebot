@@ -13,14 +13,26 @@ int OS = 3;
 
 File WORKING_DIR = new File("/home/arsalan/hackathon/moosebot/voceTest");
 
+// other globals ----------------------------------------------------------------------------------
+
+String CHICKEN_TENDERS = "No";
+
 // setup ------------------------------------------------------------------------------------------
 
 Serial moosePort;
 TTS tts;
 
 void setup() {
+
+    // Intialize speech interface.
     voce.SpeechInterface.init("libraries/voce-0.9.1/lib", true, true,
                               "libraries/voce-0.9.1/lib/gram", "moose");
+
+    // Initalize chicken-tenders-day response.
+    String[] chickenCommand = {"./chicken-tenders"};
+    CHICKEN_TENDERS = runCommand(chickenCommand);
+
+    // Initialize text-to-speech for Windows.
     if (OS == 1) {
         tts = new TTS();
         tts.setPitch(400);
@@ -36,23 +48,23 @@ void draw() {
     if (voce.SpeechInterface.getRecognizerQueueSize() > 0) {
 
         String s = voce.SpeechInterface.popRecognizedString();
-        println(s);
+        println("match = " + s);
 
         if (s.equals("is it chicken tenders day")) {
-
-            // Run script.
-            String[] command = {"./chicken-tenders"};
-            String output = runCommand(command);
-
-            // Respond.
             String additionalSpeech = "";
-            if (output.equals("Yes")) {
+            if (CHICKEN_TENDERS.equals("Yes")) {
                 additionalSpeech = "it is chicken tenders day";
-            } else if (output.equals("No")) {
+            } else {
                 additionalSpeech = "it is not chicken tenders day";
             }
             println(additionalSpeech);
-            say(output + " " + additionalSpeech);
+            say(CHICKEN_TENDERS + " " + additionalSpeech);
+        
+        } else if (s.equals("what is the best college")) {
+            say("Ezra Stiles of course, go fucking moose");
+        
+        } else if (s.equals("jay ee") || s.equals("tee dee")) {
+            say("boo");
         }
     }
 }
