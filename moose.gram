@@ -1,0 +1,5 @@
+#JSGF V1.0;
+
+grammar moose;
+
+public <hello> = (is it (chicken tenders day | bagel brunch) ) *;
