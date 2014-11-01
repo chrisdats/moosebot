@@ -1,61 +1,93 @@
-/* Sweep
- by BARRAGAN <http://barraganstudio.com> 
- This example code is in the public domain.
-
- modified 8 Nov 2013
+/* 
+ Arduino Code for Moosebot YHack 2014
+ Based Off Serial ServoControl Sketch
+ Written by Ryan Owens for SparkFun Electronics
+ And Sweep by BARRAGAN <http://barraganstudio.com> 
  by Scott Fitzgerald
- http://arduino.cc/en/Tutorial/Sweep
-*/ 
+ 
+ This sketch listens to serial commands and uses the data
+ to set the position of two servos.
+
+ Serial Command Structure: 2 bytes - [ID Byte][Servo Position byte]
+ ID byte should be 0 or 1.
+ Servo position should be a value between 0 and 180.
+ Invalid commands are ignored
+ The servo position is not error checked.
+ 
+ Hardware Setup
+ Servos should be connected to pins 10 and 9 of the Arduino.
+ External power supply is recommended for servos since 5v arduino pin cannot always source enough current for servos.
+*/
 
 #include <Servo.h> 
- 
+
 Servo myservoBase;  // create servo object to control base servo
 Servo myservoMouth; // create servo object to control mouth serv
 
- 
-int pos1 = 65;    // variable to store the servo position for base
-int pos2 = 0;     // variable to store the servo position for the mouth
- 
+int posBase = 85;    // variable to store the servo position for base
+int posMouth = 20;     // variable to store the servo position for the mouth
+
+int serialByte=0; //byte that will fold data from the Serial port.
+byte val=0;
 void setup() 
 { 
-  myservoBase.attach(0);  // attaches the servo on pin 10 to the servo object
+  myservoBase.attach(10);  // attaches the servo on pin 10 to the servo object
   myservoMouth.attach(9);  // attaches the servo on pin 9 to the servo object
+  myservoBase.write(posBase);  //Sets the initial position of the servos
+  myservoMouth.write(posMouth);
+  Serial.begin(9600);      // Set up serial connection at 9600 baud
 } 
-
-void talk(int gesticulations)
-{
-    int i;
-    for (i = 0; i <= gesticulations; i++)
-    {
-        // Produce talking action
-        for(pos2 = 70; pos2 >= 0; pos2 -= 1)
-        {
-            myservoMouth.write(pos2);
-            delay(1);
-        }
-        for(pos2 = 0; pos2 <= 70; pos2 += 1)
-        {
-            myservoMouth.write(pos2);
-            delay(1);
-        }
-    }
-}
 
 void loop() 
 {
-    for(pos1 = 25; pos1 <= 105; pos1 += 1) // goes from 0 degrees to 180 degrees 
-    {                                  // in steps of 1 degree 
-      myservoBase.write(pos1);              // tell servo to go to position in variable 'pos' 
-      delay(30);                       // waits 15ms for the servo to reach the position 
-    }
-    
-    talk(10);
-    
-    for(pos1 = 105; pos1>=25; pos1-=1)     // goes from 180 degrees to 0 degrees 
-    {                                
-      myservoBase.write(pos1);              // tell servo to go to position in variable 'pos' 
-      delay(30);                       // waits 15ms for the servo to reach the position 
-    }
-
-    talk(10);
+  while(Serial.available() <=0) {};  //Wait for a character on the serial port.
+  serialByte = Serial.read();     //Copy the character from the serial port to the variable
+  if(serialByte == '1'){  //Check to see if the character is the servo ID for the base servo
+    while(Serial.available() <=0) {};  //Wait for the second command byte from the serial port.
+    val=Serial.read();
+    myservoBase.write(val);  //Set the base servo position to the value of the second command byte received on the serial port
+  }
+  else if(serialByte == '0'){ //Check to see if the initial serial character was the servo ID for the pan servo.
+    while(Serial.available() <= 0);  //Wait for the second command byte from the serial port.
+    talk(Serial.read());   //Set the pan servo position to the value of the second command byte received from the serial port.
+  }
+  //If the character is not the pan or tilt servo ID, it is ignored.
 } 
+
+
+void scan()
+{
+  for(posBase = 25; posBase <= 105; posBase += 1) // goes from 0 degrees to 180 degrees 
+  {                                  // in steps of 1 degree 
+    myservoBase.write(posBase);              // tell servo to go to position in variable 'pos' 
+    delay(30);                       // waits 15ms for the servo to reach the position 
+  }
+  delay(1000);
+  for(posBase = 105; posBase>=25; posBase-=1)     // goes from 180 degrees to 0 degrees 
+  {                                
+    myservoBase.write(posBase);              // tell servo to go to position in variable 'pos' 
+    delay(30);                       // waits 15ms for the servo to reach the position 
+  }
+  delay(1000);
+}
+
+
+void talk(int gesticulations)
+{
+  int i;
+  for (i = 0; i <= gesticulations; i++)
+  {
+    // Produce talking action
+    for(posMouth = 70; posMouth >= 0; posMouth -= 1)
+    {
+      myservoMouth.write(posMouth);
+      delay(1);
+    }
+    for(posMouth = 0; posMouth <= 70; posMouth += 1)
+    {
+      myservoMouth.write(posMouth);
+      delay(1);
+    }
+  }
+}
+

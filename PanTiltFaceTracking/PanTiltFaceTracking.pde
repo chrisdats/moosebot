@@ -17,7 +17,7 @@
 * Two servos mounted on a pan/tilt backet must be connected to the Arduino pins 2 and 3.
 * The Arduino must be powered by a 9V external power supply.
 * 
-* Read this tutorial for more information:
+* Read this tutorial for more information: https://www.sparkfun.com/tutorials/304
 **********************************************************************************************/
 import hypermedia.video.*;  //Include the video library to capture images from the webcam
 import java.awt.Rectangle;  //A rectangle class which keeps track of the face coordinates.
@@ -38,11 +38,11 @@ int brightness_value  = 0;
 Serial port; // The serial port
 
 //Variables for keeping track of the current servo positions.
-char servoTiltPosition = 90;
-char servoPanPosition = 90;
+char servoTiltPosition = 65;
+char servoPanPosition = 10;
 //The pan/tilt servo ids for the Arduino serial command interface.
 char tiltChannel = 0;
-char panChannel = 1;
+char panChannel = '1';
 
 //These variables hold the x and y location for the middle of the detected face.
 int midFaceY=0;
@@ -139,10 +139,14 @@ void draw() {
     
   }
   //Update the servo positions by sending the serial command to the Arduino.
-  port.write(tiltChannel);      //Send the tilt servo ID
-  port.write(servoTiltPosition); //Send the updated tilt position.
+ // port.write(tiltChannel);      //Send the tilt servo ID
+//  port.write(servoTiltPosition); //Send the updated tilt position.
   port.write(panChannel);        //Send the Pan servo ID
   port.write(servoPanPosition);  //Send the updated pan position.
+  print("panChannel is ");
+  println(panChannel);
+  print("servopanposition is ");
+  println(servoPanPosition);
   delay(1);
 }
 
