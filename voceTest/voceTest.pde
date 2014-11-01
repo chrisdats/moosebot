@@ -42,17 +42,14 @@ void setup() {
 
 void draw() {
 
-    // int dummy = 0;
-    // while (voce.SpeechInterface.getRecognizerQueueSize() == 0) {
-    //     dummy++;
-    // }
-
+    voce.SpeechInterface.setRecognizerEnabled(true);
+    
     if (voce.SpeechInterface.getRecognizerQueueSize() > 0) {
 
-        voce.SpeechInterface.setRecognizerEnabled(false);
-
         String s = voce.SpeechInterface.popRecognizedString();
-        println("match = " + s);
+        println("match: " + s);
+
+        voce.SpeechInterface.setRecognizerEnabled(false);
 
         if (s.equals("is it chicken tenders day")) {
             String additionalSpeech = "";
@@ -70,8 +67,6 @@ void draw() {
         } else if (s.equals("jay ee") || s.equals("tee dee")) {
             say("boo");
         }
-
-        voce.SpeechInterface.setRecognizerEnabled(true);
     }
 }
 
