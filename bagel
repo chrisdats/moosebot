@@ -1,0 +1,3 @@
+#!/bin/bash
+
+curl http://www.isitbagelbrunch.com/ | grep -hro "No\|Yes"
