@@ -2,7 +2,7 @@
 
 grammar moose;
 
-public <main> = (<isIt>|<bestCollege>|<otherColleges>);
+public <moose> = (<isIt>|<bestCollege>|<otherColleges>);
 public <isIt> = (is it chicken tenders day);
 public <bestCollege> = (what is the best college);
 public <otherColleges> = (jay ee | tee dee);

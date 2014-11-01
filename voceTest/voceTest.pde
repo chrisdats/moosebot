@@ -13,24 +13,21 @@ int OS = 3;
 
 File WORKING_DIR = new File("/home/arsalan/hackathon/moosebot/voceTest");
 
-// other globals ----------------------------------------------------------------------------------
-
-String CHICKEN_TENDERS = "No";
-
 // setup ------------------------------------------------------------------------------------------
 
 Serial moosePort;
+String chickenTenders;
 TTS tts;
 
 void setup() {
 
     // Intialize speech interface.
-    voce.SpeechInterface.init("libraries/voce-0.9.1/lib", true, true,
+    voce.SpeechInterface.init("libraries/voce-0.9.1/lib", false, true,
                               "libraries/voce-0.9.1/lib/gram", "moose");
 
-    // Initalize chicken-tenders-day response.
+    // Initalize is-it-chicken-tenders-day response.
     String[] chickenCommand = {"./chicken-tenders"};
-    CHICKEN_TENDERS = runCommand(chickenCommand);
+    chickenTenders = runCommand(chickenCommand);
 
     // Initialize text-to-speech for Windows.
     if (OS == 1) {
@@ -45,20 +42,27 @@ void setup() {
 
 void draw() {
 
+    // int dummy = 0;
+    // while (voce.SpeechInterface.getRecognizerQueueSize() == 0) {
+    //     dummy++;
+    // }
+
     if (voce.SpeechInterface.getRecognizerQueueSize() > 0) {
+
+        voce.SpeechInterface.setRecognizerEnabled(false);
 
         String s = voce.SpeechInterface.popRecognizedString();
         println("match = " + s);
 
         if (s.equals("is it chicken tenders day")) {
             String additionalSpeech = "";
-            if (CHICKEN_TENDERS.equals("Yes")) {
+            if (chickenTenders.equals("Yes")) {
                 additionalSpeech = "it is chicken tenders day";
             } else {
                 additionalSpeech = "it is not chicken tenders day";
             }
             println(additionalSpeech);
-            say(CHICKEN_TENDERS + " " + additionalSpeech);
+            say(chickenTenders + " " + additionalSpeech);
         
         } else if (s.equals("what is the best college")) {
             say("Ezra Stiles of course, go fucking moose");
@@ -66,6 +70,8 @@ void draw() {
         } else if (s.equals("jay ee") || s.equals("tee dee")) {
             say("boo");
         }
+
+        voce.SpeechInterface.setRecognizerEnabled(true);
     }
 }
 
