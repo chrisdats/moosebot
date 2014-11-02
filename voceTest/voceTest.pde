@@ -41,19 +41,14 @@ void setup() {
 // main loop --------------------------------------------------------------------------------------
 
 void draw() {
-
-    // int dummy = 0;
-    // while (voce.SpeechInterface.getRecognizerQueueSize() == 0) {
-    //     dummy++;
-    // }
-
+    
     if (voce.SpeechInterface.getRecognizerQueueSize() > 0) {
-
 
         String s = voce.SpeechInterface.popRecognizedString();
         voce.SpeechInterface.setRecognizerEnabled(false);
         println("match = " + s);
         if (s.equals("chicken tenders false")) {
+
             String additionalSpeech = "";
             if (chickenTenders.equals("Yes")) {
                 additionalSpeech = "it is chicken tenders day";
@@ -78,6 +73,7 @@ void draw() {
         } else if (s.equals("joke")) {
           say("Jokes");
         }
+
         voce.SpeechInterface.setRecognizerEnabled(true);
     }
 }
