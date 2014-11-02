@@ -12,7 +12,7 @@ import processing.serial.*;
 int OS = 2;
 
 File WORKING_DIR = new File("/Users/sam/Desktop/moosebot/voceTest");
-
+// use sketchPath function
 // setup ------------------------------------------------------------------------------------------
 
 Serial moosePort;

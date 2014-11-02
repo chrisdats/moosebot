@@ -1,6 +1,7 @@
 /* 
  Arduino Code for Moosebot YHack 2014
- Based Off Serial ServoControl Sketch
+ 
+ Based on Serial ServoControl Sketch
  Written by Ryan Owens for SparkFun Electronics
  And Sweep by BARRAGAN <http://barraganstudio.com> 
  by Scott Fitzgerald
@@ -9,7 +10,7 @@
  to set the position of two servos.
 
  Serial Command Structure: 2 bytes - [ID Byte][Servo Position byte]
- ID byte should be 0 or 1.
+ ID byte should be 0 for mouth servo or 1 for base servo.
  Servo position should be a value between 0 and 180.
  Invalid commands are ignored
  The servo position is not error checked.
@@ -22,13 +23,13 @@
 #include <Servo.h> 
 
 Servo myservoBase;  // create servo object to control base servo
-Servo myservoMouth; // create servo object to control mouth serv
+Servo myservoMouth; // create servo object to control mouth servo
 
-int posBase = 85;    // variable to store the servo position for base
-int posMouth = 20;     // variable to store the servo position for the mouth
+int posBase = 65;    // variable to store the servo position for base
+int posMouth = 10;     // variable to store the servo position for the mouth
 
 int serialByte=0; //byte that will fold data from the Serial port.
-byte val=0;
+byte valBase=0; // byte for storing the value representing the 
 void setup() 
 { 
   myservoBase.attach(10);  // attaches the servo on pin 10 to the servo object
@@ -44,8 +45,8 @@ void loop()
   serialByte = Serial.read();     //Copy the character from the serial port to the variable
   if(serialByte == '1'){  //Check to see if the character is the servo ID for the base servo
     while(Serial.available() <=0) {};  //Wait for the second command byte from the serial port.
-    val=Serial.read();
-    myservoBase.write(val);  //Set the base servo position to the value of the second command byte received on the serial port
+    valBase=Serial.read();
+    myservoBase.write(valBase);  //Set the base servo position to the value of the second command byte received on the serial port
   }
   else if(serialByte == '0'){ //Check to see if the initial serial character was the servo ID for the pan servo.
     while(Serial.available() <= 0);  //Wait for the second command byte from the serial port.
