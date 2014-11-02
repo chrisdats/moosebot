@@ -2,7 +2,15 @@
 
 grammar moose;
 
-public <moose> = (<isIt>|<bestCollege>|<otherColleges>);
-public <isIt> = (is it chicken tenders day);
-public <bestCollege> = (what is the best college);
-public <otherColleges> = (jay ee | tee dee);
+public <moose> = (<tenders>|<bagel>|<bestCollege>|<otherColleges>|<fact>|<joke>|<dean>|<master>);
+public <tenders> = (chicken tenders);
+public <bagel> = (bagel brunch);
+public <fact> = (moose fact);
+public <joke> = (joke);
+public <master> = (master);
+public <dean> = (dean);
+public <bestCollege> = (best college);
+public <otherColleges> = (<je>|<td>|<sy>);
+public <je> = (jay ee);
+public <td> = (tee dee);
+public <sy> = (saybrook);
