@@ -2,7 +2,7 @@
 
 grammar moose;
 
-public <moose> = (<tenders>|<bagel>|<bestCollege>|<otherColleges>|<fact>|<joke>|<dean>|<master>);
+public <moose> = (<tenders>|<bagel>|<bestCollege>|<otherColleges>|<fact>|<joke>|<dean>|<master>|<weather>);
 public <tenders> = (chicken tenders);
 public <bagel> = (bagel brunch);
 public <fact> = (moose fact);
@@ -14,3 +14,4 @@ public <otherColleges> = (<je>|<td>|<sy>);
 public <je> = (jay ee);
 public <td> = (tee dee);
 public <sy> = (saybrook);
+public <weather> = (weather);

@@ -214,6 +214,11 @@ void draw() {
     else if (s.equals("joke")) {
       say("Jokes");
     }
+    else if (s.equals("weather")) {
+      String[] command = {"python", "weatherscrape.py"};
+      String response = runCommand(command);
+      say(response);
+    }
     voce.SpeechInterface.setRecognizerEnabled(true);
   }
 }
