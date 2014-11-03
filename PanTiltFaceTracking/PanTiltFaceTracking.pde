@@ -207,8 +207,10 @@ void draw() {
       say("Did you know the moose is the most amazing animal in the world?");
     } 
     else if (s.equals("bagel brunch")) {
-      if (bagel.equals("No")) {
-      say("No bagel brunch today");
+      if (bagel.equals("Yes")) {
+        say("bagel brunch today");
+      } else {
+        say("no bagel brunch today");
       }
     } 
     else if (s.equals("joke")) {
