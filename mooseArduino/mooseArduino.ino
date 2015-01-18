@@ -1,5 +1,7 @@
 /* 
  Arduino Code for Moosebot YHack 2014
+ Christopher Datsikas, Arsalan Sufi, Sam Anklesaria, Adam Cimpeanu
+ Works as of 1-18-2015
  
  Based on Serial ServoControl Sketch
  Written by Ryan Owens for SparkFun Electronics
@@ -48,14 +50,14 @@ void loop()
     valBase=Serial.read();
     myservoBase.write(valBase);  //Set the base servo position to the value of the second command byte received on the serial port
   }
-  else if(serialByte == '0'){ //Check to see if the initial serial character was the servo ID for the pan servo.
+  else if(serialByte == '0'){ //Check to see if the initial serial character was the servo ID for the mouth servo.
     while(Serial.available() <= 0);  //Wait for the second command byte from the serial port.
-    talk(Serial.read());   //Set the pan servo position to the value of the second command byte received from the serial port.
+    talk(Serial.read());   //Set the mouth servo position to the value of the second command byte received from the serial port.
   }
   //If the character is not the pan or tilt servo ID, it is ignored.
 } 
 
-
+//currently not used; intended for robot to scan during idle period
 void scan()
 {
   for(posBase = 25; posBase <= 105; posBase += 1) // goes from 0 degrees to 180 degrees 
@@ -72,7 +74,8 @@ void scan()
   delay(1000);
 }
 
-
+// produces talking behavior using mouth Motor
+// argument gesticulations is proportional to duration of speech
 void talk(int gesticulations)
 {
   int i;
