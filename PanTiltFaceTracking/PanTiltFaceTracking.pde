@@ -1,3 +1,8 @@
+/* deprecated due to incompatibility of this openCV library with newer
+   versions of Processing .
+ // do not use
+ // use mooseProcessing.pde instead. 
+*/
 /**********************************************************************************************
  * Moosebot Processing Sketch for YHack 2014
  * Based on Sparkfun Guide Written by Ryan Owens
