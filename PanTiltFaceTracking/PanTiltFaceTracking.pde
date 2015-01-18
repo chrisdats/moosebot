@@ -1,7 +1,7 @@
 /**********************************************************************************************
  * Moosebot Processing Sketch for YHack 2014
  * Based on Sparkfun Guide Written by Ryan Owens
- * Uses the OpenCV real-time computer vision  framework from Intel
+ * Uses the OpenCV real-time computer vision framework from Intel
  * Based on the OpenCV Processing Examples from ubaa.net
  *
  * The Pan/Tilt Face Tracking Sketch interfaces with an Arduino Main board to control
@@ -33,7 +33,7 @@ import java.io.*;
 //      3 for Linux.
 int OS = 1;
 
-File WORKING_DIR = new File("C:/Users/Chris/Documents/GitHub/moosebot/PanTiltFaceTracking");
+File WORKING_DIR = new File(sketchPath(""));
 // use sketchPath function
 
 // Setup ------------------------------
@@ -45,7 +45,7 @@ Serial port; // The serial port to connect with the arduino
 String chickenTenders, bagel;
 
 //Screen Size Parameters
-// 640 x 480 is large enough to get a goo
+// 640 x 480 is large enough to get a good
 int width = 640;
 int height = 480;
 
@@ -73,6 +73,7 @@ int midScreenWindow = 10;  //This is the acceptable 'error' for the center of th
 int stepSize=1;
 
 void setup() {
+
   //Create a window for the sketch.
   size( width, height );
 

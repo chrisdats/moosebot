@@ -11,8 +11,8 @@ import processing.serial.*;
 //      3 for Linux.
 int OS = 2;
 
-File WORKING_DIR = new File("/Users/sam/Desktop/moosebot/voceTest");
-// use sketchPath function
+File WORKING_DIR = new File(sketchPath(""));
+
 // setup ------------------------------------------------------------------------------------------
 
 Serial moosePort;
@@ -20,10 +20,10 @@ String chickenTenders;
 TTS tts;
 
 void setup() {
-
+ println(sketchPath(""));
     // Intialize speech interface.
-    voce.SpeechInterface.init("libraries/voce-0.9.1/lib", false, true,
-                              "libraries/voce-0.9.1/lib/gram", "moose");
+    voce.SpeechInterface.init("Documents/Processing/libraries/voce-0.9.1/lib", false, true,
+                              "Documents/Processing/libraries/voce-0.9.1/lib/gram", "moose");
 
     // Initalize is-it-chicken-tenders-day response.
     String[] chickenCommand = {"./chicken-tenders"};
