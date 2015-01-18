@@ -10,8 +10,8 @@ import processing.serial.*;
 //      2 for Mac,
 //      3 for Linux.
 int OS = 2;
-
-File WORKING_DIR = new File(sketchPath(""));
+  //change working directory to where this file is!
+File WORKING_DIR = new File("/Users/chris/Dropbox/moosebot/voceTest/");
 
 // setup ------------------------------------------------------------------------------------------
 
@@ -20,7 +20,6 @@ String chickenTenders;
 TTS tts;
 
 void setup() {
- println(sketchPath(""));
     // Intialize speech interface.
     voce.SpeechInterface.init("Documents/Processing/libraries/voce-0.9.1/lib", false, true,
                               "Documents/Processing/libraries/voce-0.9.1/lib/gram", "moose");
